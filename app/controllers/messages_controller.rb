@@ -3,7 +3,8 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.json
   def index
-    @messages = Message.all
+    @room = Room.find(params[:room_id])
+    @messages = @room.messages.order('created_at ASC')
   end
 
   # POST /messages

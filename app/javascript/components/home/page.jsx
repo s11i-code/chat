@@ -7,6 +7,6 @@ export default React.createClass({
       <div className='container'>
         <h1>Chat app</h1>
         <p>LOkgermgkemglkdmdlmk</p>
-    </div>);
+      </div>);
   },
 });
