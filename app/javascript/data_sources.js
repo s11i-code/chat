@@ -1,9 +1,22 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/observable/dom/ajax';
+import 'rxjs/add/observable/interval';
 import 'rxjs/add/operator/map';
 
-export function getMessagesSource(roomId) {
+const POLL_INTERVAL = 1000;
 
-  const messages = Observable.ajax(`http://localhost:3000/rooms/${roomId}/messages.json`);
-  return messages.map(e => e.response);
+export function getMessagesSource(roomId) {
+  const observable = Observable.ajax(`/rooms/${roomId}/messages.json`);
+  const source = Observable.interval(POLL_INTERVAL)
+    .flatMap(() => observable);
+
+  return source.map(e => e.response);
+}
+
+export function getRoomsSource(roomId) {
+  const observable = Observable.ajax('/rooms.json');
+  const source = Observable.interval(POLL_INTERVAL)
+    .flatMap(() => observable);
+
+  return source.map(e => e.response);
 }
