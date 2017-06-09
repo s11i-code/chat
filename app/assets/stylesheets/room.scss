@@ -1,0 +1,20 @@
+$dark-cyan: rgb(0, 119, 138);
+
+.room-page {
+  .messages-list {
+    padding: 10px 20px;
+    text-align: right;
+
+    .message {
+      max-width: 700px;
+      margin: 15px auto;
+    }
+    .content {
+      background-color: $dark-cyan;
+      color: white;
+      padding: 8px 20px;
+      border-radius: 6px;
+    }
+
+  }
+}

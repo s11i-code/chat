@@ -5,6 +5,6 @@ import Page from '../components/home/page';
 /* global document */
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(<Page />,
-    document.body.appendChild(document.createElement('div')),
+    document.getElementById('react-handle').appendChild(document.createElement('div')),
   );
 });

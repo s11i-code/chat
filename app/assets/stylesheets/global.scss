@@ -1,31 +1,22 @@
 $gray: rgb(78, 93, 108);
-$dark-cyan: rgb(0, 119, 138);
-
+$water-color: rgb(246, 247, 250);
 
 body {
   color: $gray;
   font-family: Roboto, san-serif;
+  font-size: 16px;
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
   h1 {
     font-family: Lato;
     font-weight: bold;
     text-align: center;
   }
-  .messages-list {
-    list-style-type: none;
-    padding: 10px 20px;
-    text-align: right;
 
-    .message {
-      max-width: 700px;
-      margin: 15px auto;
-    }
-    .content {
-      background-color: $dark-cyan;
-      color: white;
-      padding: 8px 20px;
-      border-radius: 6px;
-      font-size: 16px;
-    }
-
+  button {
   }
 }
