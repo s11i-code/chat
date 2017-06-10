@@ -2,12 +2,13 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/observable/dom/ajax';
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/operator/map';
+import { getMessagesUrl, getRoomsUrl } from './utils/urls';
 
 const MESSAGES_POLL_INTERVAL = 1000;
 const ROOMS_POLL_INTERVAL = 15000;
 
 export function getMessagesSource(roomId) {
-  const observable = Observable.ajax(`/rooms/${roomId}/messages.json`);
+  const observable = Observable.ajax(getMessagesUrl(roomId));
   const source = Observable.interval(MESSAGES_POLL_INTERVAL)
     .flatMap(() => observable);
 
@@ -15,7 +16,7 @@ export function getMessagesSource(roomId) {
 }
 
 export function getRoomsSource() {
-  const observable = Observable.ajax('/rooms.json');
+  const observable = Observable.ajax(getRoomsUrl());
   // const source = Observable.interval(ROOMS_POLL_INTERVAL)
     // .flatMap(() => observable);
 

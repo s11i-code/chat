@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import { Row, Col } from 'react-bootstrap';
 import { getRoomsSource } from '../../data_sources';
-import { getChatRoomUrl } from '../../utils/urls';
+import { getRoomUrl } from '../../utils/urls';
 
 export default React.createClass({
 
@@ -79,7 +79,7 @@ export default React.createClass({
     if (selectedRoomId) {
       const usernameWithFallback = username || `Anonymous${_.random(1, 10000)}`;
       // TODO: remove when react router added
-      window.location.replace(getChatRoomUrl(selectedRoomId, usernameWithFallback));
+      window.location.replace(getRoomUrl(selectedRoomId, usernameWithFallback));
     } else {
       alert('Please select a chat room');
       console.log('TODO: Nicer notification than an alert ');
