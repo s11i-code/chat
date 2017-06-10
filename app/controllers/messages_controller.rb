@@ -1,37 +1,25 @@
 class MessagesController < ApplicationController
 
-  # GET /messages
-  # GET /messages.json
+  skip_before_action :verify_authenticity_token, only: [:create]
+
   def index
     @room = Room.find(params[:room_id])
     @messages = @room.messages.order('created_at ASC')
   end
 
-  # POST /messages
-  # POST /messages.json
   def create
-    @message = Message.new(message_params)
+    @room = Room.find(params[:room_id])
+    @message = @room.messages.build(message_params)
 
-    respond_to do |format|
-      if @message.save
-        format.html { redirect_to @message, notice: 'Message was successfully created.' }
-        format.json { render :show, status: :created, location: @message }
-      else
-        format.html { render :new }
-        format.json { render json: @message.errors, status: :unprocessable_entity }
-      end
+    if @message.save
+      render :show, status: :created
+    else
+      render json: @message.errors, status: :unprocessable_entity
     end
   end
 
-
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_message
-      @message = Message.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
     def message_params
-      params.require(:message).permit(:room_id, :user, :content)
+      params.permit(:user, :content)
     end
 end

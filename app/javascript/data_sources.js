@@ -16,8 +16,8 @@ export function getMessagesSource(roomId) {
 
 export function getRoomsSource() {
   const observable = Observable.ajax('/rooms.json');
-  //const source = Observable.interval(ROOMS_POLL_INTERVAL)
-    //.flatMap(() => observable);
+  // const source = Observable.interval(ROOMS_POLL_INTERVAL)
+    // .flatMap(() => observable);
 
   return observable.map(e => e.response);
 }
