@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import { Row, Col } from 'react-bootstrap';
 import { getRoomsSource } from '../../data_sources';
 import { getChatRoomUrl } from '../../utils/urls';
@@ -10,7 +11,7 @@ export default React.createClass({
   },
 
   componentWillMount() {
-    /* global window*/
+    /* global window, alert*/
     /* TODO: fix this when react router added */
     const roomId = window.location.href.split('/').slice(-1)[0];
     const dataSource = getRoomsSource(roomId);
@@ -25,7 +26,7 @@ export default React.createClass({
   render() {
     const { rooms, selectedRoomId, username } = this.state;
     console.log('TODO: fix tab indexing');
-    console.log(this.state)
+    console.log(this.state);
 
     return (
       <div className='home-page'>
@@ -75,11 +76,13 @@ export default React.createClass({
   joinRoom() {
     const { selectedRoomId, username } = this.state;
 
-    if (selectedRoomId && username) {
+    if (selectedRoomId) {
+      const usernameWithFallback = username || `Anonymous${_.random(1, 10000)}`;
       // TODO: remove when react router added
-      window.location.replace(getChatRoomUrl(selectedRoomId, username));
+      window.location.replace(getChatRoomUrl(selectedRoomId, usernameWithFallback));
     } else {
-      console.log('TODO: Add notification for selecting username and chat')
+      alert('Please select a chat room');
+      console.log('TODO: Nicer notification than an alert ');
     }
   },
 });
