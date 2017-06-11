@@ -39,7 +39,9 @@ export default React.createClass({
       <div className='room-page'>
         <ul className='messages-list'>
           { messages.map(msg => (
-            <li key={msg.id}><MessagePresenter message={msg}>{ msg.user }</MessagePresenter></li>))}
+            <li key={msg.id}>
+              <MessagePresenter username={username} message={msg}>{ msg.user }</MessagePresenter>
+            </li>))}
         </ul>
         <MessageForm roomId={this.props.roomId} username={username} />
       </div>
