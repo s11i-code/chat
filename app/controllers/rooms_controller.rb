@@ -8,6 +8,7 @@ class RoomsController < ApplicationController
   end
 
   def show
+    render template: 'empty.html', layout: true
   end
 
   def create

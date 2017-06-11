@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { navigate } from 'react-mini-router';
 import { FormGroup } from 'react-bootstrap';
 import { createMessage } from '../../forms';
 
@@ -32,6 +33,7 @@ export default React.createClass({
             value={this.state.content}
           />
         </FormGroup>
+        <p className='posting-as'>Posting as {this.props.username}. <a tabIndex={-1} role='link' onClick={() => navigate('/')}>Not you? </a></p>.
         <input type='submit' className='btn pull-right' value='Post message' />
       </form>
     );

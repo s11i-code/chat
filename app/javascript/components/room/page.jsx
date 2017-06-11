@@ -1,24 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { getMessagesSource } from '../../data_sources';
 import MessageForm from './message_form';
 import MessagePresenter from './message_presenter';
 
 export default React.createClass({
 
+  propTypes: {
+    roomId: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
+  },
+
   getInitialState() {
-    console.log('TODO: add username to a better place than the url (in case user wants to send link to friend) or add proper signin');
-    const username = window.location.search.split('username=')[1];
+    console.log('TODO: add signin?');
 
     return {
       messages: [],
-      username,
     };
   },
 
   componentWillMount() {
-    /* global window*/
-    // TODO: remove when react router added
-    const roomId = window.location.href.split('/').slice(-1)[0].split('?')[0];
+    const { roomId } = this.props;
     const dataSource = getMessagesSource(roomId);
     const subscription = dataSource.subscribe(data => this.setState({ messages: data }));
     this.setState({ subscription, roomId });
@@ -30,7 +32,8 @@ export default React.createClass({
 
   render() {
     console.log(this.state);
-    const { username, messages } = this.state;
+    const { messages } = this.state;
+    const { username } = this.props;
 
     return (
       <div className='room-page'>
@@ -38,7 +41,7 @@ export default React.createClass({
           { messages.map(msg => (
             <li key={msg.id}><MessagePresenter message={msg}>{ msg.user }</MessagePresenter></li>))}
         </ul>
-        <MessageForm roomId={this.state.roomId} username={username} />
+        <MessageForm roomId={this.props.roomId} username={username} />
       </div>
     );
   },

@@ -6,7 +6,8 @@
     <%= stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', media: 'all' %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
-    <%= yield :head %>
+    <%= javascript_pack_tag 'app_container' %>
+    <title>Chat</title>
   </head>
 
   <body>

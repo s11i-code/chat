@@ -14,7 +14,8 @@ class MessagesController < ApplicationController
     if @message.save
       render :show, status: :created
     else
-      render json: @message.errors, status: :unprocessable_entity
+      format.html { render :new }
+      format.json { render json: @message.errors, status: :unprocessable_entity }
     end
   end
 

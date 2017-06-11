@@ -1,5 +1,5 @@
-export function getRoomUrl(roomId, username) {
-  return `/rooms/${roomId}?username=${username}`;
+export function getRoomUrl(roomId) {
+  return `/rooms/${roomId}`;
 }
 
 export function getRoomsUrl() {

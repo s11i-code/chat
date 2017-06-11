@@ -1,20 +1,22 @@
 import React from 'react';
-import _ from 'lodash';
+import PropTypes from 'prop-types';
+import { navigate } from 'react-mini-router';
 import { Row, Col } from 'react-bootstrap';
 import { getRoomsSource } from '../../data_sources';
 import { getRoomUrl } from '../../utils/urls';
 
 export default React.createClass({
 
+  propTypes: {
+    storeUserName: PropTypes.func.isRequired,
+  },
+
   getInitialState() {
     return { rooms: [] };
   },
 
   componentWillMount() {
-    /* global window, alert*/
-    /* TODO: fix this when react router added */
-    const roomId = window.location.href.split('/').slice(-1)[0];
-    const dataSource = getRoomsSource(roomId);
+    const dataSource = getRoomsSource();
     const subscription = dataSource.subscribe(data => this.setState({ rooms: data }));
     this.setState({ subscription });
   },
@@ -24,7 +26,8 @@ export default React.createClass({
   },
 
   render() {
-    const { rooms, selectedRoomId, username } = this.state;
+    const { storeUserName, username } = this.props;
+    const { rooms, selectedRoomId } = this.state;
     console.log('TODO: fix tab indexing');
     console.log(this.state);
 
@@ -55,7 +58,7 @@ export default React.createClass({
               placeholder='username'
               tabIndex={-1}
               value={username}
-              onChange={event => this.setUserName(event.target.value)}
+              onChange={event => storeUserName(event.target.value)}
             />
           </Col>
           <Col sm={1}>
@@ -69,17 +72,11 @@ export default React.createClass({
     this.setState({ selectedRoomId });
   },
 
-  setUserName(username) {
-    this.setState({ username });
-  },
-
   joinRoom() {
-    const { selectedRoomId, username } = this.state;
+    const { selectedRoomId } = this.state;
 
     if (selectedRoomId) {
-      const usernameWithFallback = username || `Anonymous${_.random(1, 10000)}`;
-      // TODO: remove when react router added
-      window.location.replace(getRoomUrl(selectedRoomId, usernameWithFallback));
+      navigate(getRoomUrl(selectedRoomId));
     } else {
       alert('Please select a chat room');
       console.log('TODO: Nicer notification than an alert ');
