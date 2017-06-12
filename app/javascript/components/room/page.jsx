@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getMessagesSource } from '../../data_sources';
+import { setPageTitle } from '../../utils/dom';
 import MessageForm from './message_form';
 import MessagePresenter from './message_presenter';
 
@@ -38,6 +39,7 @@ export default React.createClass({
     const { messages } = this.state;
     const { username, rooms, roomId } = this.props;
     const roomName = rooms.filter(room => room.id.toString() === roomId)[0].name;
+    setPageTitle(`Chat in ${roomName}`);
 
     return (
       <div className='room-page'>
