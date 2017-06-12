@@ -7,19 +7,21 @@ import { getRoomUrl } from '../../utils/urls';
 export default React.createClass({
 
   propTypes: {
-    storeUserName: PropTypes.func.isRequired,
+    onSelectUsername: PropTypes.func.isRequired,
+    preselectedRoomId: PropTypes.string,
     rooms: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string.isRequired,
     })).isRequired,
   },
 
   getInitialState() {
-    return { };
+    return {
+      selectedRoomId: this.props.preselectedRoomId,
+    };
   },
 
-
   render() {
-    const { storeUserName, username, rooms } = this.props;
+    const { onSelectUsername, username, rooms } = this.props;
     const { selectedRoomId } = this.state;
     console.log('TODO: fix tab indexing');
     console.log(this.state);
@@ -30,7 +32,7 @@ export default React.createClass({
         <Row>
           <Col sm={4} smOffset={2}>
             <select
-              defaultValue={selectedRoomId}
+              defaultValue={selectedRoomId || ''}
               onChange={event => this.selectRoom(event.target.value)}
               className='form-control input-lg'
               tabIndex={0}
@@ -50,8 +52,8 @@ export default React.createClass({
               type='text'
               placeholder='username'
               tabIndex={-1}
-              value={username}
-              onChange={event => storeUserName(event.target.value)}
+              value={username || ''}
+              onChange={event => onSelectUsername(event.target.value)}
             />
           </Col>
           <Col sm={1}>

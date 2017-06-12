@@ -27,6 +27,7 @@ export default React.createClass({
     const { roomId } = this.props;
     const dataSource = getMessagesSource(roomId);
     const subscription = dataSource.subscribe(data => this.setState({ messages: data }));
+
     this.setState({ subscription, roomId });
   },
 

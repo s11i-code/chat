@@ -6,48 +6,67 @@ import _ from 'lodash';
 import HomePage from '../components/home/page';
 import RoomPage from '../components/room/page';
 import { getRoomsSource } from '../data_sources';
-
+import {
+  getUsername as getStoredUserName,
+  storeUsername,
+  storeLastVisitedRoomId,
+  getLastVisitedRoomId,
+} from '../utils/secondary_storage';
 
 const App = createReactClass({
 
   mixins: [RouterMixin],
 
   getInitialState() {
-    return { rooms: [] };
+    return {
+      rooms: [],
+      username: getStoredUserName(),
+    };
   },
 
   componentWillMount() {
     const dataSource = getRoomsSource();
     const subscription = dataSource.subscribe(data => this.setState({ rooms: data }));
     this.setState({ subscription });
+
+    const { username } = this.state;
+    if (!username) {
+      this.handleUserNameSelect(`Anonymous${_.random(1, 10000)}`);
+    }
   },
 
   componentWillUnmount() {
     this.state.subscription.unsubscribe();
   },
 
+  handleUserNameSelect(username) {
+    this.setState({ username });
+    storeUsername(username);
+  },
+
   routes: {
     '/rooms/:roomId': 'room',
   },
 
-  storeUserName(username) {
-    this.setState({ username });
-  },
-
   room(roomId) {
-      // generating username when user doesn't not start from home page (e. g. they're sent a link)
-      // TODO: maybe open up a form instead
-    const { rooms } = this.state;
-    const username = this.state.username || `Anonymous${_.random(1, 10000)}`;
+    storeLastVisitedRoomId(roomId);
+    const { username, rooms } = this.state;
     const props = { username, roomId, rooms };
 
     return <RoomPage {...props} />;
   },
 
   notFound(path) {
+    const preselectedRoomId = getLastVisitedRoomId();
     const { rooms, username } = this.state;
+    const props = {
+      rooms,
+      username,
+      preselectedRoomId,
+      onSelectUsername: this.handleUserNameSelect,
+    };
 
-    return <HomePage rooms={rooms} storeUserName={this.storeUserName} username={username} />;
+    return <HomePage {...props} />;
   },
 
   render() {
