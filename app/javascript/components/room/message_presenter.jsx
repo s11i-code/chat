@@ -10,7 +10,7 @@ export default React.createClass({
       content: PropTypes.string,
       created_at: PropTypes.string,
     }).isRequired,
-    username: React.PropTypes.string,
+    username: PropTypes.string,
   },
 
   render() {
