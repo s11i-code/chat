@@ -4,7 +4,7 @@ class MessagesController < ApplicationController
 
   def index
     @room = Room.find(params[:room_id])
-    @messages = @room.messages.order('created_at ASC')
+    @messages = @room.messages.order('created_at DESC').limit(20).reverse
   end
 
   def create
