@@ -5,10 +5,26 @@ import { RouterMixin } from 'react-mini-router';
 import _ from 'lodash';
 import HomePage from '../components/home/page';
 import RoomPage from '../components/room/page';
+import { getRoomsSource } from '../data_sources';
+
 
 const App = createReactClass({
 
   mixins: [RouterMixin],
+
+  getInitialState() {
+    return { rooms: [] };
+  },
+
+  componentWillMount() {
+    const dataSource = getRoomsSource();
+    const subscription = dataSource.subscribe(data => this.setState({ rooms: data }));
+    this.setState({ subscription });
+  },
+
+  componentWillUnmount() {
+    this.state.subscription.unsubscribe();
+  },
 
   routes: {
     '/': 'home',
@@ -20,14 +36,19 @@ const App = createReactClass({
   },
 
   home() {
-    return <HomePage storeUserName={this.storeUserName} username={this.state.username} />;
+    const { rooms, username } = this.state;
+
+    return <HomePage rooms={rooms} storeUserName={this.storeUserName} username={username} />;
   },
 
   room(roomId) {
       // generating username when user doesn't not start from home page (e. g. they're sent a link)
       // TODO: maybe open up a form instead
+    const { rooms } = this.state;
     const username = this.state.username || `Anonymous${_.random(1, 10000)}`;
-    return <RoomPage roomId={roomId} username={username} />;
+    const props = { username, roomId, rooms };
+
+    return <RoomPage {...props} />;
   },
 
   notFound(path) {
@@ -35,7 +56,12 @@ const App = createReactClass({
   },
 
   render() {
-    return this.renderCurrentRoute();
+    const { rooms } = this.state;
+
+    if (rooms && rooms.length) {
+      return this.renderCurrentRoute();
+    }
+    return <div />;
   },
 
 });

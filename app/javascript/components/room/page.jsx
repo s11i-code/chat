@@ -9,6 +9,9 @@ export default React.createClass({
   propTypes: {
     roomId: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
+    rooms: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    })).isRequired,
   },
 
   getInitialState() {
@@ -33,14 +36,16 @@ export default React.createClass({
   render() {
     console.log(this.state);
     const { messages } = this.state;
-    const { username } = this.props;
+    const { username, rooms, roomId } = this.props;
+    const roomName = rooms.filter(room => room.id.toString() === roomId)[0].name;
 
     return (
       <div className='room-page'>
+        <h1>Chat in {roomName}</h1>
         <ul className='messages-list'>
           { messages.map(msg => (
             <li key={msg.id}>
-              <MessagePresenter username={username} message={msg}>{ msg.user }</MessagePresenter>
+              <MessagePresenter username={username} message={msg} />
             </li>))}
         </ul>
         <MessageForm roomId={this.props.roomId} username={username} />

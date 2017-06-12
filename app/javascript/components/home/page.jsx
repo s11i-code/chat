@@ -2,32 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { navigate } from 'react-mini-router';
 import { Row, Col } from 'react-bootstrap';
-import { getRoomsSource } from '../../data_sources';
 import { getRoomUrl } from '../../utils/urls';
 
 export default React.createClass({
 
   propTypes: {
     storeUserName: PropTypes.func.isRequired,
+    rooms: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    })).isRequired,
   },
 
   getInitialState() {
-    return { rooms: [] };
+    return { };
   },
 
-  componentWillMount() {
-    const dataSource = getRoomsSource();
-    const subscription = dataSource.subscribe(data => this.setState({ rooms: data }));
-    this.setState({ subscription });
-  },
-
-  componentWillUnmount() {
-    this.state.subscription.unsubscribe();
-  },
 
   render() {
-    const { storeUserName, username } = this.props;
-    const { rooms, selectedRoomId } = this.state;
+    const { storeUserName, username, rooms } = this.props;
+    const { selectedRoomId } = this.state;
     console.log('TODO: fix tab indexing');
     console.log(this.state);
 
