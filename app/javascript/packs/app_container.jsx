@@ -27,18 +27,11 @@ const App = createReactClass({
   },
 
   routes: {
-    '/': 'home',
     '/rooms/:roomId': 'room',
   },
 
   storeUserName(username) {
     this.setState({ username });
-  },
-
-  home() {
-    const { rooms, username } = this.state;
-
-    return <HomePage rooms={rooms} storeUserName={this.storeUserName} username={username} />;
   },
 
   room(roomId) {
@@ -52,7 +45,9 @@ const App = createReactClass({
   },
 
   notFound(path) {
-    return <div className='not-found'>Page Not Found: {path}</div>;
+    const { rooms, username } = this.state;
+
+    return <HomePage rooms={rooms} storeUserName={this.storeUserName} username={username} />;
   },
 
   render() {

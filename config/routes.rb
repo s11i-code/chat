@@ -9,4 +9,6 @@ Rails.application.routes.draw do
 
   resources :rooms, only: [:show, :create, :index]
 
+  get '*path', to: 'pages#home'
+
 end
