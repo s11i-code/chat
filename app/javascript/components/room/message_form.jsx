@@ -44,12 +44,12 @@ export default React.createClass({
     const { content } = this.state;
     const { roomId, username } = this.props;
 
-    createMessage(roomId, content, username);
+    if (content && content.trim().length > 0) {
+      const dataSource = createMessage(roomId, content, username);
+      const subscription = dataSource.subscribe(data => console.log('TODO: handle errors and saving better'));
 
-    const dataSource = createMessage(roomId, content, username);
-    const subscription = dataSource.subscribe(data => console.log('TODO: handle errors and saving better'));
-
-    this.setState({ content: '', subscription });
+      this.setState({ content: '', subscription });
+    }
   },
 
 
