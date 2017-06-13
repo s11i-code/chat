@@ -1,4 +1,4 @@
-$dark-cyan: rgb(0, 119, 138);
+$grayish-blue: rgb(151, 163, 180);
 
 .room-page {
 
@@ -10,21 +10,27 @@ $dark-cyan: rgb(0, 119, 138);
     text-align: right;
 
     .message {
-      max-width: 680px;
+      .content {
+        padding: 8px 20px;
+        border-radius: 6px;
+      }
       &.by-self {
         text-align: right;
-        margin: 15px 0 15px auto;
+        .content {
+          color: white;
+          background-color: $grayish-blue;
+        }
       }
       &.by-others {
         text-align: left;
-        margin: 15px auto 15px 0;
+        .content {
+          background-color: lighten($grayish-blue, 20%);
+        }
       }
-    }
-    .content {
-      background-color: $dark-cyan;
-      color: white;
-      padding: 8px 20px;
-      border-radius: 6px;
+      .metadata {
+        padding-top: 3px;
+        font-size: 13px;
+      }
     }
   }
   .posting-as {

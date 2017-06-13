@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { navigate } from 'react-mini-router';
+import { Breadcrumb } from 'react-bootstrap';
 import { getMessagesSource } from '../../data_sources';
 import { setPageTitle } from '../../utils/dom';
 import MessageForm from './message_form';
@@ -44,6 +46,7 @@ export default React.createClass({
 
     return (
       <div className='room-page'>
+        <Breadcrumb><a tabIndex={0} role='link' onClick={() => navigate('/')}>Back</a></Breadcrumb>
         <h1>Chat in {roomName}</h1>
         <ul className='messages-list'>
           { messages.map(msg => (
