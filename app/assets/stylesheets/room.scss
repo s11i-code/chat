@@ -10,6 +10,7 @@ $grayish-blue: rgb(151, 163, 180);
     text-align: right;
 
     .message {
+      margin-bottom: 10px;
       .content {
         padding: 8px 20px;
         border-radius: 6px;
@@ -30,6 +31,7 @@ $grayish-blue: rgb(151, 163, 180);
       .metadata {
         padding-top: 3px;
         font-size: 13px;
+        margin: 0 10px 0 10px; 
       }
     }
   }
