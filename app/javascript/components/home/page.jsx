@@ -27,7 +27,7 @@ export default React.createClass({
 
     return (
       <div className='home-page'>
-        <h1>Chat app</h1>
+        <h1>Little Chat App</h1>
         <Row>
           <Col sm={4} smOffset={2}>
             <select
