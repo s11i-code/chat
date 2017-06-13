@@ -1,4 +1,4 @@
-# Chat
+# Little Chat App
 
 Just a little chat app where you can chat about various topics (chosen by me). No login required.
 
