@@ -15,6 +15,7 @@ export default React.createClass({
   },
 
   getInitialState() {
+    console.log('TODO: fix tab indices');
     return {
       selectedRoomId: this.props.preselectedRoomId,
     };
@@ -23,8 +24,6 @@ export default React.createClass({
   render() {
     const { onSelectUsername, username, rooms } = this.props;
     const { selectedRoomId } = this.state;
-    console.log('TODO: fix tab indexing');
-    console.log(this.state);
 
     return (
       <div className='home-page'>

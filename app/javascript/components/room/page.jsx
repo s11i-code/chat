@@ -5,7 +5,7 @@ import { Breadcrumb } from 'react-bootstrap';
 import { getMessagesSource } from '../../data_sources';
 import { setPageTitle } from '../../utils/dom';
 import MessageForm from './message_form';
-import MessagePresenter from './message_presenter';
+import MessagesList from './messages_list';
 
 export default React.createClass({
 
@@ -19,9 +19,8 @@ export default React.createClass({
 
   getInitialState() {
     console.log('TODO: add signin?');
-
     return {
-      messages: [],
+      messages: null,
     };
   },
 
@@ -38,7 +37,6 @@ export default React.createClass({
   },
 
   render() {
-    console.log(this.state);
     const { messages } = this.state;
     const { username, rooms, roomId } = this.props;
     const roomName = rooms.filter(room => room.id.toString() === roomId)[0].name;
@@ -48,12 +46,7 @@ export default React.createClass({
       <div className='room-page'>
         <Breadcrumb><a tabIndex={0} role='link' onClick={() => navigate('/')}>Back</a></Breadcrumb>
         <h1>Chat in {roomName}</h1>
-        <ul className='messages-list'>
-          { messages.map(msg => (
-            <li key={msg.id}>
-              <MessagePresenter username={username} message={msg} />
-            </li>))}
-        </ul>
+        <MessagesList username={username} messages={messages} />
         <MessageForm roomId={this.props.roomId} username={username} />
       </div>
     );

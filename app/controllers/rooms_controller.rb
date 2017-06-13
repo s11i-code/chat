@@ -1,7 +1,6 @@
 class RoomsController < ApplicationController
   before_action :set_room, only: [:show, :edit, :update, :destroy]
 
-  # GET /rooms
   # GET /rooms.json
   def index
     @rooms = Room.all
@@ -11,42 +10,30 @@ class RoomsController < ApplicationController
     render template: 'empty.html', layout: true
   end
 
+  # NOT YET USED BY UI
   def create
     @room = Room.new(room_params)
 
-    respond_to do |format|
-      if @room.save
-        format.html { redirect_to @room, notice: 'Room was successfully created.' }
-        format.json { render :show, status: :created, location: @room }
-      else
-        format.html { render :new }
-        format.json { render json: @room.errors, status: :unprocessable_entity }
-      end
+    if @room.save
+      render :show, status: :created
+    else
+      render json: @room.errors, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /rooms/1
-  # PATCH/PUT /rooms/1.json
+  # PATCH/PUT /rooms/1.json  NOT YET USED BY UI
   def update
-    respond_to do |format|
-      if @room.update(room_params)
-        format.html { redirect_to @room, notice: 'Room was successfully updated.' }
-        format.json { render :show, status: :ok, location: @room }
-      else
-        format.html { render :edit }
-        format.json { render json: @room.errors, status: :unprocessable_entity }
-      end
+    if @room.update(room_params)
+      render :show, status: :ok
+    else
+      render json: @room.errors, status: :unprocessable_entity
     end
   end
 
-  # DELETE /rooms/1
-  # DELETE /rooms/1.json
+  # DELETE /rooms/1.json NOT YET USED BY UI
   def destroy
     @room.destroy
-    respond_to do |format|
-      format.html { redirect_to rooms_url, notice: 'Room was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    head :no_content
   end
 
   private

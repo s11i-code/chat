@@ -46,7 +46,7 @@ export default React.createClass({
 
     if (content && content.trim().length > 0) {
       const dataSource = createMessage(roomId, content, username);
-      const subscription = dataSource.subscribe(data => console.log('TODO: handle errors and saving better'));
+      const subscription = dataSource.subscribe(data => console.log('TODO: handle errors. Add a spinner to button while saving.'));
 
       this.setState({ content: '', subscription });
     }

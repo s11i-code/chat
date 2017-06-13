@@ -5,7 +5,6 @@ import 'rxjs/add/operator/map';
 import { getMessagesUrl, getRoomsUrl } from './utils/urls';
 
 const MESSAGES_POLL_INTERVAL = 1000;
-const ROOMS_POLL_INTERVAL = 15000;
 
 export function getMessagesSource(roomId) {
   const observable = Observable.ajax(getMessagesUrl(roomId));
@@ -16,9 +15,9 @@ export function getMessagesSource(roomId) {
 }
 
 export function getRoomsSource() {
-  const observable = Observable.ajax(getRoomsUrl());
-  // const source = Observable.interval(ROOMS_POLL_INTERVAL)
-    // .flatMap(() => observable);
+  const observable = Observable
+    .ajax(getRoomsUrl())
+    .take(1);
 
   return observable.map(e => e.response);
 }
