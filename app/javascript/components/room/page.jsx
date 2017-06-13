@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { navigate } from 'react-mini-router';
 import { Breadcrumb } from 'react-bootstrap';
 import { getMessagesSource } from '../../data_sources';
+import { generateUsername } from '../../utils/misc';
 import { setPageTitle } from '../../utils/dom';
 import MessageForm from './message_form';
 import MessagesList from './messages_list';
@@ -15,6 +16,7 @@ export default React.createClass({
     rooms: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string.isRequired,
     })).isRequired,
+    onVisitWithoutUsername: PropTypes.func.isRequired,
   },
 
   getInitialState() {
@@ -25,10 +27,13 @@ export default React.createClass({
   },
 
   componentWillMount() {
-    const { roomId } = this.props;
+    const { roomId, username, onVisitWithoutUsername } = this.props;
     const dataSource = getMessagesSource(roomId);
     const subscription = dataSource.subscribe(data => this.setState({ messages: data }));
 
+    if (!username) {
+      onVisitWithoutUsername(generateUsername());
+    }
     this.setState({ subscription, roomId });
   },
 

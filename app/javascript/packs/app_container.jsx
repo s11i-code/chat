@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import createReactClass from 'create-react-class';
 import { RouterMixin } from 'react-mini-router';
-import _ from 'lodash';
 import HomePage from '../components/home/page';
 import RoomPage from '../components/room/page';
 import { getRoomsSource } from '../data_sources';
@@ -28,11 +27,6 @@ const App = createReactClass({
     const dataSource = getRoomsSource();
     const subscription = dataSource.subscribe(data => this.setState({ rooms: data }));
     this.setState({ subscription });
-
-    const { username } = this.state;
-    if (!username) {
-      this.handleUserNameSelect(`Anonymous${_.random(1, 10000)}`);
-    }
   },
 
   componentWillUnmount() {
@@ -51,7 +45,12 @@ const App = createReactClass({
   room(roomId) {
     storeLastVisitedRoomId(roomId);
     const { username, rooms } = this.state;
-    const props = { username, roomId, rooms };
+    const props = {
+      username,
+      roomId,
+      rooms,
+      onVisitWithoutUsername: this.handleUserNameSelect,
+    };
 
     return <RoomPage {...props} />;
   },

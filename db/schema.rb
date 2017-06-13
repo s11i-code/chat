@@ -13,6 +13,8 @@
 ActiveRecord::Schema.define(version: 20170607160529) do
 
   # These are extensions that must be enabled in order to support this database
+  # TODO ADD null: false to all the relevant fields, there's a bug in migrations (using required: true by mistake which doesn't do anything)
+
   enable_extension "plpgsql"
 
   create_table "messages", force: :cascade do |t|
