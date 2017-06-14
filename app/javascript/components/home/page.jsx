@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { navigate } from 'react-mini-router';
 import { Row, Col } from 'react-bootstrap';
 import { getRoomUrl } from '../../utils/urls';
+import { setPageTitle } from '../../utils/dom';
 
 export default React.createClass({
 
@@ -25,6 +26,7 @@ export default React.createClass({
     const { onSelectUsername, username, rooms } = this.props;
     const { selectedRoomId } = this.state;
 
+    setPageTitle('Little Chat App');
     return (
       <div className='home-page'>
         <h1>Little Chat App</h1>
