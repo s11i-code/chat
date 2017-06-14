@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import Linkify from 'react-linkify';
+
 
 export default React.createClass({
 
@@ -19,7 +21,7 @@ export default React.createClass({
 
     return (
       <div className={`${message.user === username ? 'by-self' : 'by-others'} message`}>
-        <div className='content'>{ message.content }</div>
+        <Linkify><div className='content'>{ message.content }</div></Linkify>
         <div className='metadata'> By { message.user } { time } ago</div>
       </div>
     );
