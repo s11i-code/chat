@@ -23,13 +23,12 @@ export default createReactClass({
   },
 
   componentWillMount() {
-    const dataSource = getRoomsSource();
-    const subscription = dataSource.subscribe(data => this.setState({ rooms: data }));
-    this.setState({ subscription });
+    const roomsSubscription = getRoomsSource().subscribe(data => this.setState({ rooms: data }));
+    this.setState({ roomsSubscription });
   },
 
   componentWillUnmount() {
-    this.state.subscription.unsubscribe();
+    this.state.roomsSubscription.unsubscribe();
   },
 
   handleUserNameSelect(username) {
