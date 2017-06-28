@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import createReactClass from 'create-react-class';
 import { RouterMixin } from 'react-mini-router';
 import HomePage from '../components/home/page';
@@ -12,7 +11,7 @@ import {
   getLastVisitedRoomId,
 } from '../utils/secondary_storage';
 
-const App = createReactClass({
+export default createReactClass({
 
   mixins: [RouterMixin],
 
@@ -55,7 +54,7 @@ const App = createReactClass({
     return <RoomPage {...props} />;
   },
 
-  notFound(path) {
+  notFound() {
     const preselectedRoomId = getLastVisitedRoomId();
     const { rooms, username } = this.state;
     const props = {
@@ -77,10 +76,4 @@ const App = createReactClass({
     return <div />;
   },
 
-});
-/* global document */
-document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render(<App history />,
-    document.getElementById('react-handle').appendChild(document.createElement('div')),
-  );
 });
