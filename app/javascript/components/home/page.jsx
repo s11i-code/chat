@@ -36,7 +36,6 @@ export default React.createClass({
               defaultValue={selectedRoomId || ''}
               onChange={event => this.selectRoom(event.target.value)}
               className='form-control input-lg'
-              tabIndex={0}
             >
               <option value=''>Select a room</option>
               { rooms.map(room => (
@@ -52,13 +51,12 @@ export default React.createClass({
               className='form-control input-lg'
               type='text'
               placeholder='username'
-              tabIndex={-1}
               value={username || ''}
               onChange={event => onSelectUsername(event.target.value)}
             />
           </Col>
           <Col sm={1}>
-            <button onClick={this.joinRoom} className='btn btn-lg' tabIndex={-2}>Join</button>
+            <button onClick={this.joinRoom} className='btn btn-lg'>Join</button>
           </Col>
         </Row>
       </div>);
